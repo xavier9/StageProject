@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:gravity="center_horizontal"
+    android:weightSum="1">
+    <!-- Main ListView
+         Always give id value as list(@android:id/list)
+    -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/EEB2_APP"
+                android:id="@+id/textView11"
+                android:layout_gravity="center"
+                android:textSize="40dp"
+                android:textColor="#0003d6" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/Error"
+                android:textColor="#fe0303"
+                android:visibility="gone"
+                />
+
+            <EditText
+                    android:layout_width="392dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Username"
+                    android:hint="Enter Name"
+                    android:focusable="true"
+                android:layout_below="@+id/imageView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                android:maxLines="1" android:singleLine="true"
+                android:layout_marginBottom="5dp"
+                android:inputType="number"
+                android:textSize="25dp"
+                android:background="#FAFFBD" />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/Password"
+                    android:layout_below="@+id/Username"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignRight="@+id/Username"
+                    android:layout_alignEnd="@+id/Username"
+                    android:hint="Password"
+                    android:textSize="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:maxLines="1" android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:background="#FAFFBD" />
+
+            <Button
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="login"
+                    android:id="@+id/Login"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toLeftOf="@+id/textview"
+                    android:layout_toStartOf="@+id/textview"
+                android:textSize="20dp"
+                android:background="@drawable/roudedbutton"
+                android:textColor="#fdfdfe"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

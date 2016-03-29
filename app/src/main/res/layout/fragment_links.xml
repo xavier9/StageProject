@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Links">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/URL_Zimbra"
+            android:id="@+id/Zimbra"
+            android:textColor="#3054e6" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/URL_Learning"
+            android:id="@+id/Learning"
+            android:textColor="#3054e6" />
+
+        <Button
+            android:layout_width="396dp"
+            android:layout_height="wrap_content"
+            android:text="@string/URL_Alumni"
+            android:id="@+id/Alumni"
+            android:textColor="#3054e6" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/URL_Pupils_Facebook"
+            android:id="@+id/Pupils"
+            android:textColor="#3054e6" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/URL_Blog"
+            android:id="@+id/Blog"
+            android:textColor="#3054e6" />
+    </LinearLayout>
+</FrameLayout>
