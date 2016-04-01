@@ -14,10 +14,12 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -30,7 +32,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ChangeTextBehaviorTest {
+public class LDAPActivityTest {
 
     public static final String STRING_TO_BE_TYPED = "Espresso";
 
@@ -50,24 +52,42 @@ public class ChangeTextBehaviorTest {
             LDAPActivety.class);
 
     @Test
-    public void changeText_sameActivity() {
+    public void login_sameActivity() {
         // Type text and then press the button.
-        onView(withId(R.id.Username))
-                .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
-        onView(withId(R.id.Login)).perform(click());
+       onView(withId(R.id.Login)).perform(click());
 
         // Check that the text was changed.
         onView(withId(R.id.Error)).check(matches(withText("Username and password required")));
     }
 
+
     @Test
-    public void changeText_newActivity() {
+    public void login_u_sameActivity() {
         // Type text and then press the button.
-        onView(withId(R.id.Username)).perform(typeText(STRING_TO_BE_TYPED),
+        onView(withId(R.id.Username)).perform(typeText("1"),
                 closeSoftKeyboard());
-        onView(withId(R.id.Login)).perform(click());
+       onView(withId(R.id.Login)).perform(click());
 
         // This view is in a different Activity, no need to tell Espresso.
         onView(withId(R.id.Error)).check(matches(withText("Username and password required")));
     }
+    @Test
+    public void login_up_sameActivity() {
+        // Type text and then press the button.
+        onView(withId(R.id.Username)).perform(typeText("1"),
+                closeSoftKeyboard());
+        onView(withId(R.id.Password))
+                .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
+        onView(withId(R.id.Login)).perform(click());
+
+        // This view is in a different Activity, no need to tell Espresso.
+        onView(withId(R.id.Error)).check(matches(withText("invalid credentials")));
+    }
+
+    @Test
+    public void testIsClickable() {
+        onView(withId(R.id.Login)).check(matches(isClickable()));
+    }
+
+
 }
