@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle extra = getIntent().getExtras();
             int test = extra.getInt("screen");
             int student = extra.getInt("studentid");
+
             intent.putExtra("studentid", student);
             intent.putExtra("screen", test);
             startActivity(intent);

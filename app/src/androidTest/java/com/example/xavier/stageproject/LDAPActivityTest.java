@@ -7,11 +7,14 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
+
+import java.util.concurrent.TimeUnit;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.*;
@@ -19,6 +22,8 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.intent.Intents.intending;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -82,6 +87,19 @@ public class LDAPActivityTest {
 
         // This view is in a different Activity, no need to tell Espresso.
         onView(withId(R.id.Error)).check(matches(withText("invalid credentials")));
+    }
+    @Test
+    public void login_nextActivity() throws InterruptedException {
+        // Type text and then press the button.
+        onView(withId(R.id.Username)).perform(typeText("47657"),
+                closeSoftKeyboard());
+        onView(withId(R.id.Password))
+                .perform(typeText("Flipflop4"), closeSoftKeyboard());
+        onView(withId(R.id.Login)).perform(click());
+
+
+        // This view is in a different Activity, no need to tell Espresso.
+
     }
 
     @Test
