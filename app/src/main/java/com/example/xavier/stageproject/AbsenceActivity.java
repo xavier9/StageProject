@@ -1,21 +1,17 @@
 package com.example.xavier.stageproject;
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
 import com.example.xavier.stageproject.Classes.Absence;
 import com.example.xavier.stageproject.Classes.Global;
-import com.example.xavier.stageproject.Classes.Message;
 import com.example.xavier.stageproject.Listadaptor.AbenceArrayAdaptor;
 import com.example.xavier.stageproject.Mysql.ServiceHandler;
 
@@ -27,11 +23,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by xavier on 22/02/2016.
+ * The type Absence activity.
  */
 public class AbsenceActivity extends ListFragment {
 
     private ProgressDialog pDialog;
+    /**
+     * The Products list.
+     */
     ArrayList<HashMap<String, String>> productsList;
     // URL to get contacts JSON
     private static String url = Global.URL + Global.Absece;
@@ -45,10 +44,16 @@ public class AbsenceActivity extends ListFragment {
     private static final String TAG_dag = "date";
 
 
-    // contacts JSONArray
+    /**
+     * The Contacts.
+     */
+// contacts JSONArray
     JSONArray contacts = null;
 
-    // Hashmap for ListView
+    /**
+     * The Contact list.
+     */
+// Hashmap for ListView
     ArrayList<Absence> contactList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,9 +66,6 @@ public class AbsenceActivity extends ListFragment {
     }
 
 
-    /**
-     * Async task class to get json by making HTTP call
-     * */
     private class GetAbsences extends AsyncTask<Void, Void, Void> {
 
         @Override

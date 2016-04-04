@@ -2,42 +2,34 @@ package com.example.xavier.stageproject.Roster;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.xavier.stageproject.Classes.Courses;
 import com.example.xavier.stageproject.Classes.Global;
-import com.example.xavier.stageproject.Mysql.ServiceHandler;
 import com.example.xavier.stageproject.R;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
+import java.util.ArrayList;
+
+/**
+ * The type Dag fragment.
+ */
 @SuppressLint("ValidFragment")
 public class DagFragment extends Fragment {
 
@@ -51,17 +43,64 @@ public class DagFragment extends Fragment {
     private static final String TAG_Last_Name = "Last_name";
     private static final String TAG_Period = "Period";
     private static final String TAG_Room = "Room";
+    /**
+     * The Load.
+     */
     int load = 0;
 
-    // contacts JSONArray
+    /**
+     * The Contacts.
+     */
+// contacts JSONArray
     JSONArray contacts = null;
-    TextView één, twee, drie, vier, vijf, zes, zeven, acht, negen;
+    /**
+     * The Één.
+     */
+    TextView één, /**
+     * The Twee.
+     */
+    twee, /**
+     * The Drie.
+     */
+    drie, /**
+     * The Vier.
+     */
+    vier, /**
+     * The Vijf.
+     */
+    vijf, /**
+     * The Zes.
+     */
+    zes, /**
+     * The Zeven.
+     */
+    zeven, /**
+     * The Acht.
+     */
+    acht, /**
+     * The Negen.
+     */
+    negen;
     // JSON Node names
 
+    /**
+     * The Contact list.
+     */
     ArrayList<Courses> contactList;
+    /**
+     * The Courses.
+     */
     ArrayList<Courses> courses = new ArrayList<Courses>();
+    /**
+     * The Tabs.
+     */
     int tabs;
 
+    /**
+     * Instantiates a new Dag fragment.
+     *
+     * @param tab the tab
+     */
     @SuppressLint("ValidFragment")
     public DagFragment(int tab){
         tabs = tab;
@@ -181,7 +220,7 @@ public class DagFragment extends Fragment {
                                                         zes.setText(cm.toString());
                                                         break;
                                                     case 7:
-                                                        acht.setText(cm.toString());
+                                                        zeven.setText(cm.toString());
                                                         break;
                                                     case 8:
                                                         acht.setText(cm.toString());
@@ -221,7 +260,7 @@ public class DagFragment extends Fragment {
                                                         zes.setText(cm.toString());
                                                         break;
                                                     case 7:
-                                                        acht.setText(cm.toString());
+                                                        zeven.setText(cm.toString());
                                                         break;
                                                     case 8:
                                                         acht.setText(cm.toString());
@@ -261,7 +300,7 @@ public class DagFragment extends Fragment {
                                                         zes.setText(cm.toString());
                                                         break;
                                                     case 7:
-                                                        acht.setText(cm.toString());
+                                                        zeven.setText(cm.toString());
                                                         break;
                                                     case 8:
                                                         acht.setText(cm.toString());
@@ -301,7 +340,7 @@ public class DagFragment extends Fragment {
                                                         zes.setText(cm.toString());
                                                         break;
                                                     case 7:
-                                                        acht.setText(cm.toString());
+                                                        zeven.setText(cm.toString());
                                                         break;
                                                     case 8:
                                                         acht.setText(cm.toString());
@@ -341,7 +380,7 @@ public class DagFragment extends Fragment {
                                                         zes.setText(cm.toString());
                                                         break;
                                                     case 7:
-                                                        acht.setText(cm.toString());
+                                                        zeven.setText(cm.toString());
                                                         break;
                                                     case 8:
                                                         acht.setText(cm.toString());

@@ -19,6 +19,12 @@ public class CourseArrayAdaptor extends ArrayAdapter<Courses> {
     private final Context context;
     private final ArrayList<Courses> values;
 
+    /**
+     * Instantiates a new Course array adaptor.
+     *
+     * @param context the context
+     * @param values  the values
+     */
     public CourseArrayAdaptor(Context context,ArrayList<Courses>values){
             super(context, R.layout.list_item_ab,values);
             this.context=context;

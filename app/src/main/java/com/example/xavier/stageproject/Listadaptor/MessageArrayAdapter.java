@@ -3,13 +3,9 @@ package com.example.xavier.stageproject.Listadaptor;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -17,7 +13,6 @@ import com.example.xavier.stageproject.Classes.Message;
 import com.example.xavier.stageproject.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by xavier on 19/02/2016.
@@ -26,6 +21,12 @@ public class MessageArrayAdapter extends ArrayAdapter<Message> {
     private final Context context;
     private final ArrayList<Message> values;
 
+    /**
+     * Instantiates a new Message array adapter.
+     *
+     * @param context the context
+     * @param values  the values
+     */
     public MessageArrayAdapter(Context context, ArrayList<Message> values) {
         super(context, R.layout.list_item, values);
         this.context = context;

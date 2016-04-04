@@ -1,9 +1,5 @@
 package com.example.xavier.stageproject.Mysql;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -15,31 +11,59 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+/**
+ * The type Service handler.
+ */
 public class ServiceHandler {
 
+    /**
+     * The Response.
+     */
     static String response = null;
+    /**
+     * The constant GET.
+     */
     public final static int GET = 1;
+    /**
+     * The constant POST.
+     */
     public final static int POST = 2;
 
+    /**
+     * Instantiates a new Service handler.
+     */
     public ServiceHandler() {
 
     }
 
     /**
      * Making service call
+     *
+     * @param url    the url
+     * @param method the method
+     * @return the string
      * @url - url to make request
      * @method - http request method
-     * */
+     */
     public String makeServiceCall(String url, int method) {
         return this.makeServiceCall(url, method, null);
     }
 
     /**
      * Making service call
+     *
+     * @param url    the url
+     * @param method the method
+     * @param params the params
+     * @return the string
      * @url - url to make request
      * @method - http request method
      * @params - http request params
-     * */
+     */
     public String makeServiceCall(String url, int method,
                                   List<NameValuePair> params) {
         try {

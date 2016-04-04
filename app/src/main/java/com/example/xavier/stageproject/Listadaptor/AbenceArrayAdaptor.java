@@ -1,19 +1,14 @@
 package com.example.xavier.stageproject.Listadaptor;
 
 import android.content.Context;
-import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.xavier.stageproject.Classes.Absence;
-import com.example.xavier.stageproject.Classes.Message;
 import com.example.xavier.stageproject.R;
 
 import java.util.ArrayList;
@@ -25,6 +20,12 @@ public class AbenceArrayAdaptor extends ArrayAdapter<Absence> {
     private final Context context;
     private final ArrayList<Absence> values;
 
+    /**
+     * Instantiates a new Abence array adaptor.
+     *
+     * @param context the context
+     * @param values  the values
+     */
     public AbenceArrayAdaptor(Context context, ArrayList<Absence> values) {
         super(context, R.layout.list_item_ab, values);
         this.context = context;
