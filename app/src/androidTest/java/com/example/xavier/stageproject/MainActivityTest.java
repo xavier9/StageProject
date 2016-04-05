@@ -15,12 +15,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.Matchers.allOf;
 
 /**
  * Basic tests showcasing simple view matchers and actions like {@link ViewMatchers#withId},
@@ -59,37 +60,42 @@ public class MainActivityTest{
     }
 
     @Test
-    public void testSwitchWithId() {
-        onView(withId(R.id.tab_layout)).check(matches(not(isChecked())));
-        onView(withId(R.id.tab_layout)).perform(click());
-        onView(withId(R.id.tab_layout)).check(matches(isChecked()));
-
+    public void testSwipeBetweenFirstAndSecondPage() {
+        onView(withText("Messages")).check(matches(isDisplayed()));
+        onView(withId(R.id.pager)).perform(swipeLeft());
+        onView(withText("Absences")).check(matches(isDisplayed()));
     }
 
     /**
-     * Click a switch using its label value.
-     * Espresso onView, withText, check, matches, isChecked, perform, not
+     * Swipe between the first and second pages and back to the first in the ViewPager.
      */
     @Test
-    public void testSwitchWithText() {
-        onView(withText("Message")).check(matches(not(isChecked())));
-        onView(withText("Absences")).perform(click());
-        onView(withText("Absences")).check(matches(isChecked()));
+    public void testSwipeBetweenFirstSecondAndBackToFirstPage() {
+        onView(allOf(withId(R.id.tab_layout))).check(matches(isDisplayed()));
+        onView(withId(R.id.pager)).perform(swipeLeft());
+        onView(withText("Absences")).check(matches(isDisplayed()));
+        onView(withId(R.id.pager)).perform(swipeRight());
+        onView(withText("Messages")).check(matches(isDisplayed()));
     }
 
     /**
-     * But why do that when you can chain it?
-     * A three line test can now be written in a single line.
-     * Espresso onView, withText, check, matches, not, isChecked, perform, click
+     * Swipe to the end of a Fragment
      */
     @Test
-    public void testSwitchWithChainingExample() {
-        // Start with a ViewInteraction
-        onView(withText("Links"))
-                // Chain the methods you want to call.
-                .check(matches(not(isChecked())))
-                .perform(click())
-                .check(matches(isChecked()));
+    public void testSwipeToTheEnd() {
+        onView(withText("Messages")).check(matches(isDisplayed()));
+        onView(withId(R.id.pager)).perform(swipeLeft()).perform(swipeLeft()).perform(swipeLeft());
+        onView(withText("Links")).check(matches(isDisplayed()));
+    }
+
+    /**
+     * Swipe to the end of a Fragment and attempt to swipe further
+     */
+    @Test
+    public void testSwipeBeyondTheEnd() {
+        onView(withText("Messages")).check(matches(isDisplayed()));
+        onView(withId(R.id.pager)).perform(swipeLeft()).perform(swipeLeft()).perform(swipeLeft()).perform(swipeLeft());
+        onView(withText("Links")).check(matches(isDisplayed()));
     }
 
 

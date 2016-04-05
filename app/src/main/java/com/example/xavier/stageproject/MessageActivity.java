@@ -1,34 +1,30 @@
 package com.example.xavier.stageproject;
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.xavier.stageproject.Classes.Global;
 import com.example.xavier.stageproject.Classes.Message;
 import com.example.xavier.stageproject.Listadaptor.MessageArrayAdapter;
-import com.example.xavier.stageproject.Mysql.ServiceHandler;
-import com.example.xavier.stageproject.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MessageActivity extends ListFragment {
 
@@ -55,120 +51,103 @@ public class MessageActivity extends ListFragment {
 
         View rootView = inflater.inflate(R.layout.message, container, false);
         contactList = new ArrayList<Message>();
-        new GetMessages().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        return rootView;
-    }
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+        final JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        //Bundle extra = getActivity().getIntent().getExtras();
 
-    /**
-     * Async task class to get json by making HTTP call
-     * */
-    private class GetMessages extends AsyncTask<Void, Void, Void> {
+                        /*int test = extra.getInt("studentid");
+                        url = url +"?Student_id="+test+"";
+                        Log.e("URL", url);*/
+                        try {
+                            contacts = response.getJSONArray("message");
+                            for (int i = 0; i < contacts.length(); i++) {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
 
-        }
+                                    JSONObject c = contacts.getJSONObject(i);
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            ServiceHandler sh = new ServiceHandler();
+                                    int id = c.getInt(TAG_ID);
+                                    //Log.e("ID", String.valueOf(id));
+                                    String name = c.getString(TAG_NAME);
+                                    // Log.e("Boolean", c.getString(TAG_Visible));
+                                    boolean vis = false;
+                                    switch (c.getString(TAG_Visible)) {
+                                        case "0":
+                                            vis = false;
+                                            break;
+                                        case "1":
+                                            vis = true;
+                                            break;
+                                    }
+                                    int screen = c.getInt("screen_ID");
 
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
 
-            //Log.d("Response: ", "> " + jsonStr);
+                                    // tmp hashmap for single contact
+                                    Message contact = new Message();
 
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                                    // adding each child node to HashMap key => value
+                                    contact.setID(id);
+                                    contact.setMessage(name);
+                                    contact.setVisible(vis);
+                                    contact.setScreen(screen);
 
-                    // Getting JSON Array node
-                    contacts = jsonObj.getJSONArray(TAG_Table);
 
-                    // looping through All Contacts
-                    for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
+                                    // adding contact to contact list
+                                    contactList.add(contact);
+                                }
+                            ArrayList<Message> contacts =new ArrayList<Message>();
+                            for(int i  = 0; i < contactList.size(); i++){
+                                //Log.i("Test", contactList.get(i).get(TAG_NAME));
+                                //Log.i("Test", contactList.get(i).toString());
+                                //Log.e("Visible", contactList.get(i).get(TAG_Visible));
+                                Bundle extra = getActivity().getIntent().getExtras();
+                                int test = extra.getInt("screen");
+                                // Log.e("screen", String.valueOf(test));
+                                if(contactList.get(i).getVisible() && contactList.get(i).getScreen() == test){
+                                    contacts.add(contactList.get(i));
+                                    //Log.e("visible", "visible");
 
-                        int id = c.getInt(TAG_ID);
-                        //Log.e("ID", String.valueOf(id));
-                        String name = c.getString(TAG_NAME);
-                       // Log.e("Boolean", c.getString(TAG_Visible));
-                        boolean vis = false;
-                        switch (c.getString(TAG_Visible)){
-                            case "0":
-                                vis = false;
-                                break;
-                            case "1":
-                                vis = true;
-                                break;
+                                }
+
+
+
+                            }
+                            Log.e("Size", String.valueOf(contactList.size()));
+                            ListAdapter adapter = new MessageArrayAdapter(getActivity(),contacts);
+                            // updating listview
+                            setListAdapter(adapter);
+
+
+                        }catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        int screen = c.getInt("screen_ID");
 
-
-
-                        // tmp hashmap for single contact
-                        Message contact = new Message();
-
-                        // adding each child node to HashMap key => value
-                        contact.setID(id);
-                        contact.setMessage(name);
-                        contact.setVisible(vis);
-                        contact.setScreen(screen);
-
-
-                        // adding contact to contact list
-                        contactList.add(contact);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                    },
+                 new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
                 }
-            } else {
-                Log.e("ServiceHandler", "Couldn't get any data from the url");
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            // Dismiss the progress dialog
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-            ArrayList<Message> contacts =new ArrayList<Message>();
-            for(int i  = 0; i < contactList.size(); i++){
-                //Log.i("Test", contactList.get(i).get(TAG_NAME));
-                //Log.i("Test", contactList.get(i).toString());
-                //Log.e("Visible", contactList.get(i).get(TAG_Visible));
-                Bundle extra = getActivity().getIntent().getExtras();
-                int test = extra.getInt("screen");
-               // Log.e("screen", String.valueOf(test));
-                if(contactList.get(i).getVisible() && contactList.get(i).getScreen() == test){
-                    contacts.add(contactList.get(i));
-                    //Log.e("visible", "visible");
-
                 }
 
+                    );
+                    getRequest.setRetryPolicy(new
 
+                    DefaultRetryPolicy(500000,
+                                       DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-            }
+                    );
+                    //Log.e("Request", getRequest.toString());
+        queue.add(getRequest);
 
-            //Log.e("Size", String.valueOf(contact.length));
-            ListAdapter adapter = new MessageArrayAdapter(getActivity(),contacts);
-            // updating listview
-            setListAdapter(adapter);
-        }
-
+        //new GetMessages().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        return rootView;
     }
 
 }
