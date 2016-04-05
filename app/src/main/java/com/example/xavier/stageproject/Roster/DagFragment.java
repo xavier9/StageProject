@@ -101,7 +101,8 @@ public class DagFragment extends Fragment {
      *
      * @param tab the tab
      */
-    @SuppressLint("ValidFragment")
+
+    public DagFragment(){}
     public DagFragment(int tab){
         tabs = tab;
     }
