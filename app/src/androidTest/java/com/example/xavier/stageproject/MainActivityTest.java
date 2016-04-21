@@ -21,7 +21,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
 
 /**
  * Basic tests showcasing simple view matchers and actions like {@link ViewMatchers#withId},
@@ -47,19 +46,6 @@ public class MainActivityTest{
     }
 
     @Test
-    public void someTest() {
-        Context targetContext = InstrumentationRegistry.getInstrumentation()
-                .getTargetContext();
-        Intent intent = new Intent(targetContext, MainActivity.class);
-        intent.putExtra("studentid", "47657");
-        //intent.putExtra("screen", "3");
-        rule.launchActivity(intent);
-
-
-        /* Your activity is initialized and ready to go. */
-    }
-
-    @Test
     public void testSwipeBetweenFirstAndSecondPage() {
         onView(withText("Messages")).check(matches(isDisplayed()));
         onView(withId(R.id.pager)).perform(swipeLeft());
@@ -71,7 +57,7 @@ public class MainActivityTest{
      */
     @Test
     public void testSwipeBetweenFirstSecondAndBackToFirstPage() {
-        onView(allOf(withId(R.id.tab_layout))).check(matches(isDisplayed()));
+        onView(withText("Messages")).check(matches(isDisplayed()));
         onView(withId(R.id.pager)).perform(swipeLeft());
         onView(withText("Absences")).check(matches(isDisplayed()));
         onView(withId(R.id.pager)).perform(swipeRight());
